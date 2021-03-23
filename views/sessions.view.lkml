@@ -25,9 +25,8 @@ view: sessions {
           , lag.user_id AS user_id
           , lag.ip_address AS ip_address
           , ROW_NUMBER () OVER (ORDER BY lag.created_at) AS unique_session_id
---          , ROW_NUMBER () OVER (PARTITION BY COALESCE(lag.user_id::varchar, lag.ip_address) ORDER BY lag.created_at) AS session_sequence
---          , ROW_NUMBER () OVER (PARTITION BY COALESCE(lag.user_id, lag.ip_address) ORDER BY lag.created_at) AS session_sequence
-          , COALESCE(
+          , ROW_NUMBER () OVER (PARTITION BY COALESCE(CAST(lag.user_id as STRING), CAST(lag.ip_address as STRING)) ORDER BY lag.created_at) AS session_sequence
+           , COALESCE(
                 LEAD(lag.created_at) OVER (PARTITION BY lag.user_id, lag.ip_address ORDER BY lag.created_at)
               , '6000-01-01') AS next_session_start
         FROM lag
