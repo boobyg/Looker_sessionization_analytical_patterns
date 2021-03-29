@@ -153,6 +153,19 @@ filter: is_abondoned {
   drill_fields: [detail*]
   }
 
+    measure: bounce_session_count {
+      hidden: yes
+      type: count_distinct
+      sql: ${unique_session_id} ;;
+      filters: [number_of_events_in_session: "=1"]
+
+    }
+    measure: bounce_rate {
+      type: number
+      sql: ${bounce_session_count} / nullif(${session_facts_count},0) ;;
+      value_format_name: percent_2
+      drill_fields: [detail*]
+    }
 
 
 
