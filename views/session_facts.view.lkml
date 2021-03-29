@@ -18,8 +18,8 @@ view: session_facts {
             , event_id
             , event_type
             , COALESCE(CAST (user_id as STRING), ip_address) as identifier
-            , FIRST_VALUE (created_at) OVER (PARTITION BY unique_session_id ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS session_start
-            , LAST_VALUE (created_at) OVER (PARTITION BY unique_session_id ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS session_end
+            , MIN (created_at) OVER (PARTITION BY unique_session_id ) AS session_start
+            , MAX (created_at) OVER (PARTITION BY unique_session_id ) AS session_end
             , FIRST_VALUE (event_type) OVER (PARTITION BY unique_session_id ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS session_landing_page
             , LAST_VALUE  (event_type) OVER (PARTITION BY unique_session_id ORDER BY created_at ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING) AS session_exit_page
           FROM
@@ -117,13 +117,44 @@ view: session_facts {
 
   measure: average_session_length_seconds {
     type: average
+    value_format: "#,##0"
     sql: ${session_length_seconds} ;;
   }
+
+filter: is_abondoned {
+  type:  yesno
+  sql:  ${TABLE}.session_exit_page !="Purchase" and ${events_sessionized.page_name} = "/cart";;
+}
+
+#measure: average_session_length_seconds_abondoned {
+#    type: average
+#    value_format: "#,##0"
+#    sql: CASE WHEN  ${is_abondoned} THEN ${session_length_seconds}
+#      ELSE 0 END;;
+#  }
+
 
   measure: session_facts_count {
     type: count
     drill_fields: [detail*]
   }
+
+  measure: abandon_sessions_count{
+    type: count_distinct
+    hidden: no
+    sql: ${unique_session_id} ;;
+    filters:  [is_abondoned:"yes"]
+  }
+
+  measure: abandon_sessions_perc{
+  type: number
+  sql:   ${abandon_sessions_count} / nullif(${session_facts_count},0) ;;
+  value_format_name: percent_2
+  drill_fields: [detail*]
+  }
+
+
+
 
   set: detail {
     fields: [

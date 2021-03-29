@@ -67,7 +67,6 @@ WHERE DATE(log.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -
     type: string
     sql: ${TABLE}.event_type ;;
   }
-
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
@@ -84,6 +83,32 @@ WHERE DATE(log.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -
     value_format_name: id
     sql: ${TABLE}.inverse_event_sequence_within_session ;;
   }
+
+  dimension: page_name_custom_sort {
+    label: "Page Name (Custom Sort)"
+    alpha_sort: yes
+    case: {
+      when: {
+        sql: ${page_name} = '/register' ;;
+        label: "0.Registered"
+      }
+      when: {
+        sql: ${page_name} = '/cart' ;;
+        label: "2.Cart"
+      }
+      when: {
+        sql: ${page_name} = '/purchase' ;;
+        label: "3.Purchase"
+      }
+      else:   "1.Other"
+      }
+    }
+
+  dimension: is_cancelled {
+    type: yesno
+    sql: ${TABLE}.event_type = 'Cancel' ;;
+  }
+
 
   set: detail {
     fields: [
