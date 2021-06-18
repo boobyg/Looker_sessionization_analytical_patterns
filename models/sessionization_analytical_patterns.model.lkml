@@ -41,6 +41,14 @@ explore: events_sessionized {
 
 explore: funnel_explorer {
   persist_for: "24 hours"
+  query: further_step_reached {
+    dimensions: [funnel_explorer.user_id, funnel_explorer.furthest_step ]
+    description: "Furthest step reached by user"
+    label: "Furthest Step Reached"
+    sorts: [funnel_explorer.user_id: asc]
+#    filters: [funnel_explorer.session_start_date:"last 59 months"]
+    limit: 50
+  }
 
 #  always_filter: {
 #    filters: {

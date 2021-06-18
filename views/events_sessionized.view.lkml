@@ -28,8 +28,8 @@ INNER JOIN ${sessions.SQL_TABLE_NAME} AS sessions
   AND log.ip_address = sessions.ip_address
   AND log.created_at >= sessions.session_start
   AND log.created_at < sessions.next_session_start
-WHERE DATE(log.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY)
-                AND DATE(log.created_at) <  DATE_ADD(DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY ) , INTERVAL 60 DAY) -- optional limit of events table to only past 60 days
+--bg WHERE DATE(log.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY)
+-- bg                 AND DATE(log.created_at) <  DATE_ADD(DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY ) , INTERVAL 60 DAY) -- optional limit of events table to only past 60 days
 
  ;;
   }

@@ -16,8 +16,8 @@ view: sessions {
                     LAG(logs.created_at) OVER ( PARTITION BY logs.user_id, logs.ip_address ORDER BY logs.created_at)
                   ,  minute) AS idle_time
               FROM `test-co-ramp.testco.events` as logs
-              WHERE DATE(logs.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY)
-                AND DATE(logs.created_at) <  DATE_ADD(DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY ) , INTERVAL 60 DAY) -- optional limit of events table to only past 60 days
+ -- bg data is 12-2020             WHERE DATE(logs.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY)
+--bg                AND DATE(logs.created_at) <  DATE_ADD(DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY ) , INTERVAL 60 DAY) -- optional limit of events table to only past 60 days
               )
         SELECT
           lag.created_at AS session_start
