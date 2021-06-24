@@ -7,15 +7,11 @@ include: "/views/**/*.view"
 # include: "*.dashboard"
 
 datagroup: sessionization_analytical_patterns_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "4 hour"
+ sql_trigger: SELECT 1;;
+#  max_cache_age: "4 hour"
 }
 
 persist_with: sessionization_analytical_patterns_default_datagroup
-
-explore: products {}
-
-explore: events {}
 
 ################################################################
 # Includes Sessionization Block and Sessionization Funnel Block
@@ -37,6 +33,15 @@ explore: events_sessionized {
     view_label: "Sessions"
     sql_on: ${sessions.unique_session_id} = ${session_facts.unique_session_id} ;;
   }
+  join: dynamic_filter {
+  relationship: one_to_one
+  sql_on: ${dynamic_filter.page_name_custom_sort} = ${events_sessionized.page_name_custom_sort} and
+            ${dynamic_filter.traffic_source} = ${events_sessionized.traffic_source} ;;
+  }
+}
+
+explore: dynamic_filter {
+  hidden: yes
 }
 
 explore: funnel_explorer {

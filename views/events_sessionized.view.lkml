@@ -70,6 +70,8 @@ INNER JOIN ${sessions.SQL_TABLE_NAME} AS sessions
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
+    suggest_explore: dynamic_filter
+    suggest_dimension: dynamic.filter.traffic_source
   }
 
   dimension: event_sequence_within_session {
@@ -102,6 +104,9 @@ INNER JOIN ${sessions.SQL_TABLE_NAME} AS sessions
       }
       else:   "1.Other"
       }
+    suggest_explore: dynamic_filter
+    suggest_dimension: dynamic_filter.page_name_custom_sort
+
     }
 
   dimension: is_cancelled {
