@@ -37,6 +37,8 @@ view: sessions {
   measure: count {
     type: count
     drill_fields: [detail*]
+    description: "Session Count!!!"
+ ##   html:"<img source=https://looker.com/assets/img/images/logos/looker.svg/>";;
   }
 
   dimension_group: session_start_at {

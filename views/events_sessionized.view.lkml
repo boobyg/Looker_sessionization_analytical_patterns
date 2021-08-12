@@ -28,8 +28,6 @@ INNER JOIN ${sessions.SQL_TABLE_NAME} AS sessions
   AND log.ip_address = sessions.ip_address
   AND log.created_at >= sessions.session_start
   AND log.created_at < sessions.next_session_start
---bg WHERE DATE(log.created_at) >= DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY)
--- bg                 AND DATE(log.created_at) <  DATE_ADD(DATE_ADD (DATE_TRUNC(CURRENT_DATE,DAY), INTERVAL -59 DAY ) , INTERVAL 60 DAY) -- optional limit of events table to only past 60 days
 
  ;;
   }
@@ -70,8 +68,8 @@ INNER JOIN ${sessions.SQL_TABLE_NAME} AS sessions
   dimension: traffic_source {
     type: string
     sql: ${TABLE}.traffic_source ;;
-    suggest_explore: dynamic_filter
-    suggest_dimension: dynamic.filter.traffic_source
+#    suggest_explore: dynamic_filter
+#    suggest_dimension: dynamic.filter.traffic_source
   }
 
   dimension: event_sequence_within_session {
@@ -104,9 +102,8 @@ INNER JOIN ${sessions.SQL_TABLE_NAME} AS sessions
       }
       else:   "1.Other"
       }
-    suggest_explore: dynamic_filter
+#    suggest_explore: dynamic_filter
     suggest_dimension: dynamic_filter.page_name_custom_sort
-
     }
 
   dimension: is_cancelled {

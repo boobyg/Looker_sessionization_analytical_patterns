@@ -7,8 +7,9 @@ include: "/views/**/*.view"
 # include: "*.dashboard"
 
 datagroup: sessionization_analytical_patterns_default_datagroup {
- sql_trigger: SELECT 1;;
-#  max_cache_age: "4 hour"
+ # sql_trigger: SELECT max(id) FROM my_tablename ;;
+  sql_trigger: SELECT 1;;
+  max_cache_age: "4 hour"
 }
 
 persist_with: sessionization_analytical_patterns_default_datagroup
@@ -16,6 +17,7 @@ persist_with: sessionization_analytical_patterns_default_datagroup
 ################################################################
 # Includes Sessionization Block and Sessionization Funnel Block
 ################################################################
+explore:  products{}
 
 explore: events_sessionized {
   label: "Web Session Data"
@@ -41,7 +43,7 @@ explore: events_sessionized {
 }
 
 explore: dynamic_filter {
-  hidden: yes
+  hidden: no
 }
 
 explore: funnel_explorer {

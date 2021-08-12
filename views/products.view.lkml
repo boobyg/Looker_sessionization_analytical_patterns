@@ -1,3 +1,5 @@
+      label: "Sales Force via Zapier"
+
 view: products {
   sql_table_name: `testco.products`
     ;;
@@ -37,6 +39,11 @@ view: products {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    link: {
+      label: "Sales Force via Zapier"
+      icon_url: "https://looker--zapier.my.salesforce.com/img/logo214.svg"
+      url: "https://looker--zapier.my.salesforce.com/?ec=302&startURL=%2F0011700000wUuUP"
+      }
   }
 
   dimension: retail_price {

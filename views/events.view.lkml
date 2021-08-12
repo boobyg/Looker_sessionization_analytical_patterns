@@ -89,6 +89,10 @@ view: events {
     sql: ${TABLE}.user_id ;;
   }
 
+measure: user_id_1 {
+  sql: ${user_id} ;;
+}
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
