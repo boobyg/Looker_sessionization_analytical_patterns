@@ -6,13 +6,13 @@ include: "/views/**/*.view"
 # include all dashboards in this project
 # include: "*.dashboard"
 
-datagroup: sessionization_analytical_patterns_default_datagroup {
- # sql_trigger: SELECT max(id) FROM my_tablename ;;
-  sql_trigger: SELECT 1;;
+datagroup: example_datagroup {
+  sql_trigger: SELECT max(id) FROM my_tablename ;;
+ # sql_trigger: SELECT 1;;
   max_cache_age: "4 hour"
 }
 
-persist_with: sessionization_analytical_patterns_default_datagroup
+persist_with: example_datagroup
 
 ################################################################
 # Includes Sessionization Block and Sessionization Funnel Block
