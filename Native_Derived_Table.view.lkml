@@ -27,6 +27,13 @@ view: native_derived_table {
       }
       datagroup_trigger: example_datagroup
     }
+
+  dimension:  primary_key{
+    primary_key:yes
+    sql:GENERATE_UUID ();;
+
+  }
+
     dimension: traffic_source {
       label: "Events Traffic Source"
     }
