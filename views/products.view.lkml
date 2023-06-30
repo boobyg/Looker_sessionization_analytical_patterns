@@ -1,5 +1,3 @@
-      label: "Sales Force via Zapier"
-
 view: products {
   sql_table_name: `testco.products`
     ;;

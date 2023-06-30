@@ -14,6 +14,7 @@ datagroup: sessionization_analytical_patterns_default_datagroup {
 }
 
 persist_with: sessionization_analytical_patterns_default_datagroup
+label: "Sales Force via Zapier"
 
 ################################################################
 # Includes Sessionization Block and Sessionization Funnel Block

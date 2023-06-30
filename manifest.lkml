@@ -40,6 +40,6 @@ application: MyApp {
 }
 
 constant: CONNECTION_NAME {
-  value: "google_analytics_sample"
+  value: "google_analytics_sample_argolis"
   export: override_required
 }
