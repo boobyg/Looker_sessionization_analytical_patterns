@@ -6,7 +6,7 @@ view: events_sessionized {
   view_label: "Events"
 
   derived_table: {
-    sql_trigger_value: SELECT DATE(CONVERT_TIMEZONE('UTC', 'America/Los_Angeles', GETDATE())) ;;
+#    sql_trigger_value: SELECT DATE(CONVERT_TIMEZONE('UTC', 'America/Los_Angeles', GETDATE())) ;;
 ##    distribution: "event_id"
 ##    sortkeys: ["created_at"]
     sql: SELECT

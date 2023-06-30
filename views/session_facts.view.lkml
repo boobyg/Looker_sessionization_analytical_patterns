@@ -4,7 +4,7 @@
 
 view: session_facts {
   derived_table: {
-    sql_trigger_value: SELECT DATE(CONVERT_TIMEZONE('UTC', 'America/Los_Angeles', GETDATE())) ;;
+ #   sql_trigger_value: SELECT DATE(CONVERT_TIMEZONE('UTC', 'America/Los_Angeles', GETDATE())) ;;
 ##    distribution: "unique_session_id"
 ##    sortkeys: ["session_start"]
     sql: WITH session_facts AS

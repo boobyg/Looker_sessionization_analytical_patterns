@@ -1,4 +1,4 @@
-connection: "google_analytics_sample"
+connection: "google_analytics_sample_argolis"
 
 # include all the views
 include: "/views/**/*.view"
@@ -8,8 +8,9 @@ include: "/views/**/*.view"
 
 datagroup: sessionization_analytical_patterns_default_datagroup {
  # sql_trigger: SELECT max(id) FROM my_tablename ;;
-  sql_trigger: SELECT 1;;
-  max_cache_age: "4 hour"
+#  sql_trigger: SELECT 1;;
+  max_cache_age: "99999 hour"
+  sql_trigger: FALSE;;
 }
 
 persist_with: sessionization_analytical_patterns_default_datagroup
